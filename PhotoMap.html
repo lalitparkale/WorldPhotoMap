@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvQVvO5-bghcYQUjGe0QIQXOaL8No3Ccw" type="text/javascript"></script>
+    <script src="lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
+    <script src="world_photo_locations.js"></script>
+    <style>
+        #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="lightbox2/dist/css/lightbox.min.css">
+    <script type="text/javascript">
+        var map;
+        var markers;
+
+        // Create an array of alphabetical characters used to label the markers.
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        function initialize() {
+            //console.log("initialize() called...")
+            map = new google.maps.Map(document.getElementById('map'),
+                {
+                    center: new google.maps.LatLng(-34, 124),
+                    zoom: 4,
+                    //mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+            // Add some markers to the map.
+            // Note: The code uses the JavaScript Array.prototype.map() method to
+            // create an array of markers based on a given "locations" array.
+            // The map() method here has nothing to do with the Google Maps API.
+            markers = locations.map(function (location, i) {
+                var marker = new google.maps.Marker({ position: location, label: "" });
+                marker.addListener('click', function () {
+                    map.setCenter(marker.getPosition());
+                    //display image
+                    //generateImageElements();
+
+                    $("#reallythefirstimagetag").trigger("click");
+                });
+                return marker;
+            });
+
+            // Add a marker clusterer to manage the markers.
+            var markerCluster = new MarkerClusterer(map, markers,
+                { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
+
+            google.maps.event.addListener(map, 'bounds_changed', update_image_list);
+
+        }
+
+        function update_image_list() {
+            //load images for all markers currently on the map
+            //create <a> elements under <div> element (id="idMarkerImages")
+            var MarkerImageDiv = document.getElementById('idMarkerImages');
+            while (MarkerImageDiv.hasChildNodes())
+                MarkerImageDiv.removeChild(MarkerImageDiv.firstChild);
+
+            var ae; isfirstImage = false;
+            for (var i = 0; i < markers.length; i++) {
+                if (map.getBounds().contains(markers[i].getPosition())) {
+                    // markers[i] in visible bounds
+                    ae = createImageElm(locations[i].pic);
+
+                    if (!isfirstImage)
+                        ae.id = "reallythefirstimagetag";
+
+                    MarkerImageDiv.appendChild(ae);
+                }
+                else {
+                    // markers[i] is not in visible bounds
+                }
+            }
+        }
+
+        function createImageElm(picPath) {
+            var ae = document.createElement("a");
+            var typ;
+
+            //aElement += "class=\"example-image-link\" href=\"" + (locItem.pic) + "data-lightbox=\"example-set\" data-title=\"Image name\"><img class=\"example-image\" src=\"" + (locItem.pic) + "\" height=\"42\" width=\"42\" /></a>";
+
+            ae.className = "example-image-link";
+            ae.href = picPath;
+
+            typ = document.createAttribute("data-lightbox");
+            typ.value = "example-set";
+            ae.attributes.setNamedItem(typ);
+
+            typ = document.createAttribute("data-title");
+            typ.value = "<<Image name>>";
+            ae.attributes.setNamedItem(typ);
+
+            ae.innerHTML = "<img class=\"example-image\" src=\"" + picPath + "\" height=\"42\" width=\"42\" />";
+
+            return ae;
+        }
+
+        /*
+        var locations = [
+            { lat: -31.563910, lng: 147.154312, pic: "file://C:\\Users\\lalit\\Documents\\Lalit\\Pics\\2016-03\\IMG_1250.jpg"},
+            { lat: -33.718234, lng: 150.363181, pic: "file://C:\\Users\\lalit\\Documents\\Lalit\\Pics\\2016-03\\IMG_1251.jpg" },
+            { lat: -35.718234, lng: 153.363181, pic: "file://C:\\Users\\lalit\\Documents\\Lalit\\Pics\\2016-03\\IMG_1252.jpg" },
+        ]
+        */
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+</head>
+<body style="height: 100%">
+    <h2>Photos around the world</h2>
+    <div id="map" class="map" style="height:600px"></div>
+    <div id="idMarkerImages" style="display:none">
+        <a id="reallythefirstimagetag" class="example-image-link" href="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1279.JPG" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1279.JPG" alt="" height="42" width="42" /></a>
+        <a class="example-image-link" href="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1278.jpg" data-lightbox="example-set" data-title="Or press the right arrow on your keyboard."><img class="example-image" src="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1278.JPG" alt="" height="42" width="42" /></a>
+        <a class="example-image-link" href="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1272.jpg" data-lightbox="example-set" data-title="The next image in the set is preloaded as you're viewing."><img class="example-image" src="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1272.JPG" alt="" height="42" width="42" /></a>
+        <a class="example-image-link" href="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1271.jpg" data-lightbox="example-set" data-title="Click anywhere outside the image or the X to the right to close."><img class="example-image" src="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1271.JPG" alt="" height="42" width="42" /></a>
+    </div>
+</body>
+</html>
