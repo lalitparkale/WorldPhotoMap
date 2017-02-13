@@ -1,6 +1,10 @@
-import os, os.path import fnmatch import pathlib from glob import glob
-from PIL import Image import get_exif_info
-#c:\\users\\lalit\\documents\\lalit\\python\\ import webbrowser
+import os, os.path
+import fnmatch
+import pathlib
+from glob import glob
+from PIL import Image
+import get_exif_info
+import webbrowser
 
 
 def SearchAllPics(pathToSearch = r"C:\Users\lalit\Documents\Lalit\Pics\2016-03", ):
@@ -36,18 +40,21 @@ def open_photo_map():
 
     #first search all pics and extract the GPS locations
     #\2016-03
-    FilesInfo = SearchAllPics(r"C:\Users\lalit\Documents\Lalit\Pics\2016-03")
+    FilesInfo = SearchAllPics(r"C:\Users\lalit\Documents\Lalit\Pics")
     locations = ""
     for k, v in FilesInfo.items():
         #{lat: -31.563910, lng: 147.154312},
+        
+        #replace backslash with double backslash so that JS does not escape \
+        rk = (str(k)).replace("\\","\\\\")
         if  v is None or v["lat"] is None or v["lng"] is None:
-            locations = locations + "{lat:0, lng:0},"
+            locations = locations + "{lat:0, lng:0, pic:\"file://" + rk + "\"},"
         else:
-            rk = (str(k)).replace("\\","\\\\")
             locations = locations + "{lat:" + str(v["lat"]) + ", lng:" + str(v["lng"]) + ", pic:\"file://" + rk + "\"},"
     
     #create javascript file # Create or overwrite the output file
-    output_file = open('world_photo_locations.js', 'w')
+    #explicity encoding required because the generated file can have some escaped combinations
+    output_file = open('world_photo_locations.js', 'w', encoding='utf-8')
 
     #form locations list
     str_locations = "var locations = [" + locations + "]"
