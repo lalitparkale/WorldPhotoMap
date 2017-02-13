@@ -32,7 +32,6 @@
             map = new google.maps.Map(document.getElementById('map'),
                 {
                     center: new google.maps.LatLng(-34, 124),
-                    zoom: 4,
                     //mapTypeId: google.maps.MapTypeId.ROADMAP
                 });
 
@@ -47,7 +46,7 @@
                     //display image
                     //generateImageElements();
 
-                    $("#reallythefirstimagetag").trigger("click");
+                    show_photos();
                 });
                 return marker;
             });
@@ -55,9 +54,13 @@
             // Add a marker clusterer to manage the markers.
             var markerCluster = new MarkerClusterer(map, markers,
                 { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
+            //markerCluster.
+            google.maps.event.addListener(map, 'idle', update_image_list);
 
-            google.maps.event.addListener(map, 'bounds_changed', update_image_list);
+        }
 
+        function show_photos() {
+            $("#reallythefirstimagetag").trigger("click");
         }
 
         function update_image_list() {
@@ -119,7 +122,16 @@
 </head>
 <body style="height: 100%">
     <h2>Photos around the world</h2>
-    <div id="map" class="map" style="height:600px"></div>
+    <div id="ShowPhotos" style="margin-left: 5px; margin-right: 5px; z-index: 1000000; position: absolute; right: 0px; top: 0px;">
+        <a target="_blank" href="javascript:void(0);" onclick="show_photos();" title="Click to see all photos in this area" style="position: static; overflow: visible; float: none; display: inline;">
+            <div style="width: 64px; height: 64px; cursor: pointer;">
+                <img src="gallery-frame-icon.png" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 64px; height: 64px; user-select: none; border: 0px; padding: 0px; margin: 0px;">
+            </div>
+        </a>
+    </div>
+    <div id="map" class="map" style="height:600px">
+        
+    </div>
     <div id="idMarkerImages" style="display:none">
         <a id="reallythefirstimagetag" class="example-image-link" href="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1279.JPG" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1279.JPG" alt="" height="42" width="42" /></a>
         <a class="example-image-link" href="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1278.jpg" data-lightbox="example-set" data-title="Or press the right arrow on your keyboard."><img class="example-image" src="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1278.JPG" alt="" height="42" width="42" /></a>
