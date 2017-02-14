@@ -19,12 +19,14 @@ def SearchAllPics(pathToSearch = r"C:\Users\lalit\Documents\Lalit\Pics\2016-03",
 
     FilesInfo = {}
     for file in files:
-        with Image.open(file) as image:
-            exif_data = get_exif_info.get_exif_data(image)
-            #gps_info = get_exif_info.clean_gps_info(exif_data)
-            la, lo = get_exif_info.get_lat_lon(exif_data)
-            FilesInfo[file] = {'lat':la, 'lng':lo}
-
+            try:
+                with Image.open(file) as image:
+                exif_data = get_exif_info.get_exif_data(image)
+                #gps_info = get_exif_info.clean_gps_info(exif_data)
+                la, lo = get_exif_info.get_lat_lon(exif_data)
+                FilesInfo[file] = {'lat':la, 'lng':lo}
+            except:
+                pass
     i=0
     for k, v in FilesInfo.items():
         i=i+1
