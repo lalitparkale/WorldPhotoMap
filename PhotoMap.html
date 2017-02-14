@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
+    <title>World of photos</title>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvQVvO5-bghcYQUjGe0QIQXOaL8No3Ccw" type="text/javascript"></script>
     <script src="lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
@@ -27,11 +28,14 @@
         // Create an array of alphabetical characters used to label the markers.
         var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
+        console.log("Script <>");
+
         function initialize() {
-            //console.log("initialize() called...")
+            console.log("initialize() called...")
             map = new google.maps.Map(document.getElementById('map'),
                 {
                     center: new google.maps.LatLng(-34, 124),
+                    zoom: 4,
                     //mapTypeId: google.maps.MapTypeId.ROADMAP
                 });
 
@@ -42,7 +46,8 @@
             markers = locations.map(function (location, i) {
                 var marker = new google.maps.Marker({ position: location, label: "" });
                 marker.addListener('click', function () {
-                    map.setCenter(marker.getPosition());
+                    console.log("marker click event");
+                    //map.setCenter(marker.getPosition());
                     //display image
                     //generateImageElements();
 
@@ -60,10 +65,13 @@
         }
 
         function show_photos() {
+            console.log("show_photos() called");
             $("#reallythefirstimagetag").trigger("click");
         }
 
         function update_image_list() {
+            console.log("update_image_list() called");
+
             //load images for all markers currently on the map
             //create <a> elements under <div> element (id="idMarkerImages")
             var MarkerImageDiv = document.getElementById('idMarkerImages');
@@ -88,6 +96,8 @@
         }
 
         function createImageElm(picPath) {
+            console.log("createImageElm() called");
+
             var ae = document.createElement("a");
             var typ;
 
@@ -134,9 +144,6 @@
     </div>
     <div id="idMarkerImages" style="display:none">
         <a id="reallythefirstimagetag" class="example-image-link" href="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1279.JPG" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1279.JPG" alt="" height="42" width="42" /></a>
-        <a class="example-image-link" href="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1278.jpg" data-lightbox="example-set" data-title="Or press the right arrow on your keyboard."><img class="example-image" src="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1278.JPG" alt="" height="42" width="42" /></a>
-        <a class="example-image-link" href="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1272.jpg" data-lightbox="example-set" data-title="The next image in the set is preloaded as you're viewing."><img class="example-image" src="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1272.JPG" alt="" height="42" width="42" /></a>
-        <a class="example-image-link" href="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1271.jpg" data-lightbox="example-set" data-title="Click anywhere outside the image or the X to the right to close."><img class="example-image" src="file://C:\Users\lalit\Documents\Lalit\Pics\2016-03\IMG_1271.JPG" alt="" height="42" width="42" /></a>
     </div>
 </body>
 </html>
