@@ -7,13 +7,15 @@ Local app to sort your photos on the world map
 
 <h2>#What is technically required</h2>
 <ol>
-<li>1. Python v3 and above</li>
-<ol>
-<li>1.1 Required explicit module install of PIL module</li>
+  <li>1. Python v3 and above</li>
+    <ol>
+      <li>1.1 Required explicit module install of PIL module</li>
+    </ol>
+  <li>2. Modern browsers (HTML5)</li>
 </ol>
-<li>2. Modern browsers (HTML5)</li>
-</ol>
-<p>
+<p align="center">
 Example showing cluster of photos on Google Map
-<img />
+  <div align="center">
+    <img src="https://github.com/lalitparkale/WorldPhotoMap/blob/master/world_of_photos_screen_grab.JPG"/>
+    </div>
 </p>
