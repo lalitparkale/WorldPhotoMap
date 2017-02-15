@@ -6,7 +6,6 @@ from PIL import Image
 import get_exif_info
 import webbrowser
 
-
 if __name__ == "__main__":
     
     folder_to_scan = input("Enter a dir path : ")
