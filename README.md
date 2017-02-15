@@ -13,9 +13,15 @@ Local app to sort your photos on the world map
     </ol>
   <li>2. Modern browsers (HTML5)</li>
 </ol>
-<p align="center">
+<p align="center" style="bgcolor:grey">
 Example showing cluster of photos on Google Map
   <div align="center">
     <img src="https://github.com/lalitparkale/WorldPhotoMap/blob/master/world_of_photos_screen_grab.JPG"/>
+    </div>
+</p>
+<p align="center">
+Example showing slide show of photos within the map area
+  <div align="center">
+    <img src="https://github.com/lalitparkale/WorldPhotoMap/blob/master/world_of_photos_screen_grab_2.JPG"/>
     </div>
 </p>
