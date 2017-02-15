@@ -13,3 +13,7 @@ Local app to sort your photos on the world map
 </ol>
 <li>2. Modern browsers (HTML5)</li>
 </ol>
+<p>
+Example showing cluster of photos on Google Map
+<img />
+</p>
